@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+    <head>
+        <title>chr15m subscriptions in Google Reader</title>
+    </head>
+    <body>
+        <outline title="botany" text="botany">
+            <outline text="Plant Science Blog From Biology-blog.com"
+                title="Plant Science Blog From Biology-blog.com"
+                type="rss"
+                xmlUrl="http://www.biology-blog.com/blogs/rss/plant-science-blog.xml" htmlUrl="http://www.biology-blog.com/blogs/plant-science-blog.html"/>
+            <outline text="Plants are the Strangest People"
+                title="Plants are the Strangest People" type="rss"
+                xmlUrl="http://plantsarethestrangestpeople.blogspot.com/feeds/posts/default" htmlUrl="http://plantsarethestrangestpeople.blogspot.com/"/>
+        </outline>
+        <outline title="Listen Subscriptions" text="Listen Subscriptions">
+            <outline text="ABC NewsRadio Shuffle"
+                title="ABC NewsRadio Shuffle" type="rss"
+                xmlUrl="http://abc.net.au/newsradio/podcast/newsradio.xml" htmlUrl="http://www.abc.net.au/newsradio/podcast/newsradio.xml"/>
+            <outline text="Astronomy Cast" title="Astronomy Cast"
+                type="rss"
+                xmlUrl="http://www.astronomycast.com/podcast.xml" htmlUrl="http://www.astronomycast.com"/>
+         </outline>
+    </body>
+</opml>
