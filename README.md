@@ -16,14 +16,14 @@ iex(1)> OPMLParser.run("test/sample_opml_files/opml_flat.xml")
 
 iex(3)> OPMLParser.run("test/sample_opml_files/opml_nested.xml")
 
-[%{items: [%{htmlUrl: "http://www.biology-blog.com/blogs/plant-science-blog.html",
+[%{children: [%{htmlUrl: "http://www.biology-blog.com/blogs/plant-science-blog.html",
       text: "Plant Science Blog From Biology-blog.com",
       title: "Plant Science Blog From Biology-blog.com", type: "rss", url: ""},
     %{htmlUrl: "http://plantsarethestrangestpeople.blogspot.com/",
       text: "Plants are the Strangest People",
       title: "Plants are the Strangest People", type: "rss", url: ""}],
    text: "botany", title: "botany"},
- %{items: [%{htmlUrl: "http://www.abc.net.au/newsradio/podcast/newsradio.xml",
+ %{children: [%{htmlUrl: "http://www.abc.net.au/newsradio/podcast/newsradio.xml",
       text: "ABC NewsRadio Shuffle", title: "ABC NewsRadio Shuffle",
       type: "rss", url: ""},
     %{htmlUrl: "http://www.astronomycast.com", text: "Astronomy Cast",
