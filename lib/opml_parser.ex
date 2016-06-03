@@ -8,17 +8,13 @@ defmodule OPMLParser do
 
   defp parse_opml(node) do
     if node |> hasChildren? do
-      parse_node(node, :nested)
+      parse_opml(node, :has_children)
     else
-      parse_node(node)
+      parse_opml(node, :inner_node)
     end
   end
 
-  defp hasChildren?(node) do
-    node |> List.first |> xpath(~x"./outline") != nil
-  end
-
-  defp parse_node(node) do
+  defp parse_opml(node, :inner_node) do
     node
     |> Enum.map(fn (outline_node) ->
         %{
@@ -30,7 +26,7 @@ defmodule OPMLParser do
           }
     end)
   end
-  defp parse_node(node, :nested) do
+  defp parse_opml(node, :has_children) do
     node
     |> Enum.map(fn (outline_node) ->
         %{
@@ -40,4 +36,9 @@ defmodule OPMLParser do
           }
     end)
   end
+
+  defp hasChildren?(node) do
+    node |> List.first |> xpath(~x"./outline") != nil
+  end
+
 end
