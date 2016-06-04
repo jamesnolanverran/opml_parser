@@ -1,15 +1,17 @@
 defmodule S do
   import SweetXml
   def run(base_node, path) do
-    process_node(base_node, String.split(path))
+    paths = String.split(path, "/")
+    process_node(base_node, paths)
   end
   def process_node(outer_node, [ path | tail ]) do
     outer_node
     |> Enum.map(fn (node) ->
       inner_node = node |> xpath(~x"./#{path}"l)
+      node_name = node |> get_keyword_name
       {
-        node |> get_keyword_name,
-        process_node(inner_node, tail) ## about to add callback
+        node_name,
+        callback({node_name, inner_node}, tail)
       }
     end)
   end
@@ -17,17 +19,17 @@ defmodule S do
     outer_node
     |> Enum.map(fn (node) ->
       {
-        { node |> get_keyword_name, outer_node} |> Client.callback |> List.flatten
+        { node |> get_keyword_name, outer_node} |> callback |> List.flatten
       }
     end)
   end
   defp get_keyword_name(node) do
     node |> xpath(~x"name(.)"s) |> String.to_atom
   end
-end
-defmodule Client do
-  import SweetXml
 
+
+
+  #================================
   def request_body do
     """
     <Query>
@@ -48,7 +50,7 @@ defmodule Client do
     </Query>
     """
   end
-  def run do
+  def run2 do
     base_node = request_body |> xpath(~x"//Query"l)
     path = "cars/bmw/specs"
     S.run(base_node, path)
@@ -64,6 +66,9 @@ defmodule Client do
         doesntexist: specs_node |> xpath(~x"./nonexistent/text()"s)
       ]
     end)
+  end
+  def callback({_, node}, tail) do
+    S.process_node(node, tail)
   end
 end
 
