@@ -10,11 +10,11 @@ defmodule OPMLParser do
     if node |> hasChildren? do
       sub_parse_opml({:has_children, node})
     else
-      sub_parse_opml({:inner_node, node})
+      sub_parse_opml({:no_children, node})
     end
   end
 
-  defp sub_parse_opml({:inner_node, node}) do
+  defp sub_parse_opml({:no_children, node}) do
     node
     |> Enum.map(fn (outline_node) ->
         %{
