@@ -26,7 +26,7 @@ defmodule TraversalClient do
     end)
   end
 
-  def handle_node({:cars, node, _}, paths) do
+  def handle_node({:cars, node}, paths) do
     {
       :yikes,
       traverse_nodes(node, paths, __MODULE__)

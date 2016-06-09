@@ -38,25 +38,25 @@ defmodule OPMLClient2Test do
     assert result == expected
   end
 
-  # test "multi_nested", %{multi_nested: filename} do
-  #   result = OPMLClient2.run(filename)
-  #   expected = [ %{children: [%{children: [%{htmlUrl: "http://www.biology-blog.com/blogs/plant-science-blog.html",
-  #                        text: "Plant Science Blog From Biology-blog.com",
-  #                        title: "Plant Science Blog From Biology-blog.com", type: "rss",
-  #                        url: ""}], text: "inner-botany1", title: "inner-botany1"},
-  #                   %{children: [%{htmlUrl: "http://plantsarethestrangestpeople.blogspot.com/",
-  #                        text: "Plants are the Strangest People",
-  #                        title: "Plants are the Strangest People", type: "rss", url: ""}],
-  #                     text: "inner-botany2", title: "inner-botany2"}], text: "botany",
-  #                  title: "botany"},
-  #                %{children: [%{children: [%{htmlUrl: "http://www.abc.net.au/newsradio/podcast/newsradio.xml",
-  #                        text: "ABC NewsRadio Shuffle", title: "ABC NewsRadio Shuffle",
-  #                        type: "rss", url: ""},
-  #                      %{htmlUrl: "http://www.astronomycast.com", text: "Astronomy Cast",
-  #                        title: "Astronomy Cast", type: "rss", url: ""}], text: "inner-listen1",
-  #                     title: "inner-listen1"}], text: "Listen Subscriptions",
-  #                  title: "Listen Subscriptions"}
-  #               ]
-  #   assert result == expected
-  # end
+  test "multi_nested", %{multi_nested: filename} do
+    result = OPMLClient2.run(filename)
+    expected = [ %{children: [%{children: [%{htmlUrl: "http://www.biology-blog.com/blogs/plant-science-blog.html",
+                         text: "Plant Science Blog From Biology-blog.com",
+                         title: "Plant Science Blog From Biology-blog.com", type: "rss",
+                         url: ""}], text: "inner-botany1", title: "inner-botany1"},
+                    %{children: [%{htmlUrl: "http://plantsarethestrangestpeople.blogspot.com/",
+                         text: "Plants are the Strangest People",
+                         title: "Plants are the Strangest People", type: "rss", url: ""}],
+                      text: "inner-botany2", title: "inner-botany2"}], text: "botany",
+                   title: "botany"},
+                 %{children: [%{children: [%{htmlUrl: "http://www.abc.net.au/newsradio/podcast/newsradio.xml",
+                         text: "ABC NewsRadio Shuffle", title: "ABC NewsRadio Shuffle",
+                         type: "rss", url: ""},
+                       %{htmlUrl: "http://www.astronomycast.com", text: "Astronomy Cast",
+                         title: "Astronomy Cast", type: "rss", url: ""}], text: "inner-listen1",
+                      title: "inner-listen1"}], text: "Listen Subscriptions",
+                   title: "Listen Subscriptions"}
+                ]
+    assert result == expected
+  end
 end

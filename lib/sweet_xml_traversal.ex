@@ -23,8 +23,9 @@ defmodule SweetXmlTraversal do
         outer_node
         |> Enum.map(fn (node) ->
           inner_node = node |> xpath(~x"./#{path}"l)
-          module.handle_node({node_name, inner_node, outer_node}, tail)
+          module.handle_node({node_name, inner_node}, tail)
         end)
+        |> List.flatten
       [] ->
         node_name = outer_node |> get_keyword_name
         module.handle_node({node_name, outer_node}, [])
