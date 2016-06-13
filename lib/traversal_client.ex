@@ -1,18 +1,11 @@
 defmodule TraversalClient do
   use SweetXmlTraversal
   def run do
-  # def run(filename, path) do
-    doc = request_body # doc = File.stream!(filename // "dir/to/page.xml")
-    path = "Query/cars/bmw/specs" # travers these paths - all as lists - and a callback will fire for each node
-                                  # that will be handled with handle_node
-    [ base | paths ] = String.split(path, "/")
-    base_node = doc |> xpath(~x"//#{base}"l) # paths need to include a surrounding element -> eg "body"
-    traverse_nodes(base_node, paths, __MODULE__) # store __MODULE__ in a datastructure so I don't have to pass it to every function
-    # start_traversal(__MODULE__, base_node, paths)
+    path = "Query/cars/bmw/specs"
+    start_traversal(request_body, path, __MODULE__)
   end
 
-  # Use callbacks to handle specific nodes using :path
-  def handle_node({:specs, node}, []) do # final traversal for :spec branch
+  def handle_node({:specs, node}, []) do
     node
     |> Enum.map(fn (specs_node) ->
       {
@@ -25,33 +18,23 @@ defmodule TraversalClient do
       }
     end)
   end
-
-  def handle_node({:cars, node}, paths) do
-    {
-      :yikes,
-      traverse_nodes(node, paths, __MODULE__)
-    }
-  end
-  def handle_node({node_name, node, _}, paths) do # for all cases but ":specs" in the path I build a nested keyword list
+  def handle_node({node_name, node}, paths) do
     {
       node_name,
-      traverse_nodes(node, paths, __MODULE__)
+      traverse_node(node, paths, __MODULE__)
     }
   end
-
-
-
-
-
-
   def request_body do
     """
-    <Query>
-      <cars>
+      <Query><cars>
         <bmw>
           <specs>
            <model>5 seriesw</model>
             <engine>4.4</engine>
+          </specs>
+          <specs>
+           <model>8 seriesw</model>
+            <engine>9.9</engine>
           </specs>
         </bmw>
         <bmw>
@@ -60,8 +43,55 @@ defmodule TraversalClient do
             <engine>3.0</engine>
           </specs>
         </bmw>
-      </cars>
-    </Query>
+        <porche>
+          <specs>
+            <model>911</model>
+            <engine>3.3</engine>
+          </specs>
+          <specs>
+            <model>914</model>
+            <engine>5.0</engine>
+          </specs>
+        </porche>
+        <porche>
+          <specs>
+            <model>some other model</model>
+            <engine>3.2</engine>
+          </specs>
+        </porche>
+      </cars></Query>
     """
   end
+  def run2 do
+    request_body |> xpath(
+      ~x"//Query"l,
+        cars: [
+          ~x"./cars"l,
+            bmw: [
+              ~x"./bmw"l,
+              specs: [
+                ~x"./specs"l,
+                  model: ~x"./model/text()"s,
+                  engine: ~x"./engine/text()"s
+            ]
+          ],
+            porche: [
+              ~x"./porche"l,
+              specs: [
+                ~x"./specs"l,
+                  model: ~x"./model/text()"s,
+                  engine: ~x"./engine/text()"s
+              ]
+            ]
+          ]
+    )
+  end
+# OUTPUT:
+# [[cars: [[bmw: [[specs: [[model: "5 seriesw", engine: "4.4"],
+#        [model: "8 seriesw", engine: "9.9"]]],
+#      [specs: [[model: "3 seriesw", engine: "3.0"]]]],
+#     porche: [[specs: [[model: "911", engine: "3.3"],
+#        [model: "914", engine: "5.0"]]],
+#      [specs: [[model: "some other model", engine: "3.2"]]]]]]]]
+
 end

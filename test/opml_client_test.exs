@@ -1,6 +1,6 @@
-defmodule OPMLClient2Test do
+defmodule OPMLClientTest do
   use ExUnit.Case
-  doctest OPMLClient2
+  doctest OPMLClient
   # these tests aren't useful at all, but I'm trying out elixir testing...
   setup do
     flat = "./test/sample_opml_files/opml_flat.xml"
@@ -10,7 +10,7 @@ defmodule OPMLClient2Test do
   end
 
   test "flat", %{flat: filename} do
-    result = OPMLClient2.run(filename)
+    result = OPMLClient.run(filename)
     expected = [ %{htmlUrl: "http://news.com.com/", text: "CNET News.com",
                    title: "CNET News.com", type: "rss", url: ""},
                  %{htmlUrl: "http://www.washingtonpost.com/wp-dyn/politics?nav=rss_politics",
@@ -20,7 +20,7 @@ defmodule OPMLClient2Test do
     assert result == expected
   end
   test "nested", %{nested: filename} do
-    result = OPMLClient2.run(filename)
+    result = OPMLClient.run(filename)
     expected = [ %{children: [%{htmlUrl: "http://www.biology-blog.com/blogs/plant-science-blog.html",
                       text: "Plant Science Blog From Biology-blog.com",
                       title: "Plant Science Blog From Biology-blog.com", type: "rss", url: ""},
@@ -39,7 +39,7 @@ defmodule OPMLClient2Test do
   end
 
   test "multi_nested", %{multi_nested: filename} do
-    result = OPMLClient2.run(filename)
+    result = OPMLClient.run(filename)
     expected = [ %{children: [%{children: [%{htmlUrl: "http://www.biology-blog.com/blogs/plant-science-blog.html",
                          text: "Plant Science Blog From Biology-blog.com",
                          title: "Plant Science Blog From Biology-blog.com", type: "rss",
