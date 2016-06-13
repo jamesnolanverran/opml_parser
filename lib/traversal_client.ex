@@ -62,36 +62,5 @@ defmodule TraversalClient do
       </cars></Query>
     """
   end
-  def run2 do
-    request_body |> xpath(
-      ~x"//Query"l,
-        cars: [
-          ~x"./cars"l,
-            bmw: [
-              ~x"./bmw"l,
-              specs: [
-                ~x"./specs"l,
-                  model: ~x"./model/text()"s,
-                  engine: ~x"./engine/text()"s
-            ]
-          ],
-            porche: [
-              ~x"./porche"l,
-              specs: [
-                ~x"./specs"l,
-                  model: ~x"./model/text()"s,
-                  engine: ~x"./engine/text()"s
-              ]
-            ]
-          ]
-    )
-  end
-# OUTPUT:
-# [[cars: [[bmw: [[specs: [[model: "5 seriesw", engine: "4.4"],
-#        [model: "8 seriesw", engine: "9.9"]]],
-#      [specs: [[model: "3 seriesw", engine: "3.0"]]]],
-#     porche: [[specs: [[model: "911", engine: "3.3"],
-#        [model: "914", engine: "5.0"]]],
-#      [specs: [[model: "some other model", engine: "3.2"]]]]]]]]
 
 end

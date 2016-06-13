@@ -1,32 +1,13 @@
-# OPMLParser
+## Fun with xml and elixir
 
-A basic example of extracting RSS feed info from OPML files using SweetXml and Elixir.
+I started to work on a basic opml parser with SweetXml for a personal project, and have been playing and experimenting with xml parsing in elixir, and also elixir in general.
 
-### Usage:
+### OPMLParser
+
+A simple example of extracting RSS feed info from OPML files using SweetXml and Elixir. There's a bug in sweet_xml formatting (#31) so I tried something different, still using sweet_xml for now. I used http://www.therssweblog.com/?guid=20051003145153 as a guide
+
+#### Usage:
 
 ```elixir
-iex(1)> OPMLParser.run("test/sample_opml_files/opml_flat.xml")
-
-[%{htmlUrl: "http://news.com.com/", text: "CNET News.com",
-   title: "CNET News.com", type: "rss", url: ""},
- %{htmlUrl: "http://www.washingtonpost.com/wp-dyn/politics?nav=rss_politics",
-   text: "washingtonpost.com - Politics",
-   title: "washingtonpost.com - Politics", type: "rss", url: ""}]
-
-
-iex(3)> OPMLParser.run("test/sample_opml_files/opml_nested.xml")
-
-[%{children: [%{htmlUrl: "http://www.biology-blog.com/blogs/plant-science-blog.html",
-      text: "Plant Science Blog From Biology-blog.com",
-      title: "Plant Science Blog From Biology-blog.com", type: "rss", url: ""},
-    %{htmlUrl: "http://plantsarethestrangestpeople.blogspot.com/",
-      text: "Plants are the Strangest People",
-      title: "Plants are the Strangest People", type: "rss", url: ""}],
-   text: "botany", title: "botany"},
- %{children: [%{htmlUrl: "http://www.abc.net.au/newsradio/podcast/newsradio.xml",
-      text: "ABC NewsRadio Shuffle", title: "ABC NewsRadio Shuffle",
-      type: "rss", url: ""},
-    %{htmlUrl: "http://www.astronomycast.com", text: "Astronomy Cast",
-      title: "Astronomy Cast", type: "rss", url: ""}],
-   text: "Listen Subscriptions", title: "Listen Subscriptions"}]
+iex(1)> OPMLClient.run("test/sample_opml_files/opml_flat.xml")
 ```
